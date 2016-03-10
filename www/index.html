@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="us">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
+    <title>Rustic Pear Salon Mobile</title>
+   <link rel="stylesheet" href="themes/RusticPear1.min.css" />
+<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+
+<!-- Javascript HTML requirements for JQuery Mobile-->
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> 
+
+<script>
+    	$(document).ready(function(){
+        	var url = "http://api.twitter.com/1/statuses/user_timeline.json?screen_name=Microsoft&count=20&callback=?";
+        	var tweet = "";
+        
+        	$.getJSON(url, function(data) {		
+            	$.each(data, function(i,item) {
+                	tweet += convertUrlToLink(item.text) + "<br>" + 
+                         	formatTime(item.created_at) + "<br><br>";
+            	});
+            	$("#twitterfeed").html("").append(tweet);
+        	});
+        
+        	function convertUrlToLink(text) {
+            	var exp = /(\b(https?):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/i;
+            	return text.replace(exp,"<br><a href='$1'>$1</a>");  
+        	}
+    
+        	// function to calculate how long ago the tweet was posted
+			function formatTime(tweetDateTime) {
+				var dateTimeString = tweetDateTime.substr(4, 7) +
+				                     tweetDateTime.substr(26) +
+				                     tweetDateTime.substr(10, 15);
+				                     				
+				var tweetDate = new Date(dateTimeString);
+				var tweetTime = tweetDate.getTime();
+				var currentTime = new Date().getTime()
+				var timeago = parseInt((currentTime - tweetTime) / 1000);
+			
+				if 		(timeago < (1*60)) 		return "less than a minute ago";
+				else if	(timeago < (2*60)) 		return "about a minute ago";
+				else if	(timeago < (45*60)) 	return (parseInt(timeago / 60)).toString() + " minutes ago";
+				else if	(timeago < (90*60)) 	return "about an hour ago";
+				else if	(timeago < (24*60*60)) 	return "about " + (parseInt(timeago / 3600)).toString() + " hours ago";
+				else if	(timeago < (48*60*60)) 	return "1 day ago";
+				else 							return (parseInt(timeago / 86400)).toString() + " days ago";
+			}
+    	});
+    </script>
+
+</head>
+<body>
+
+<!-- HOME -->
+	<div data-role="page" id="home">
+    	<header data-role="header">
+        	<h1>Rustic Pear Salon</h1>
+        	<div data-role="navbar">
+				<ul>
+					<li><a href="#home" data-icon="home" data-theme="b" class="ui-btn-active" data-transition="slide">Home</a></li>
+					<li><a href="#aboutus" data-icon="star" data-theme="b" data-transition="slide">About Us</a></li>
+            		<li><a href="#contactus" data-icon="info" data-theme="b" data-transition="slide">Contact Us</a></li>
+				</ul>
+			</div>
+    	</header>
+    
+    	<section data-role="content">
+			<h2>Why people choose Rustic Pear Salon</h2>
+	    	<p>Rustic Pear Salon is located in beautiful downtown Twin Falls. It has a rustic charm with elegant touches. It is a full service salon.</p>
+
+	    	<p>To find out more, go to <a href="#aboutus">About Us</a>.</p>
+	    
+	    	<h3>What our clients say</h3>
+	    	<q>You can tell a lot about a place when walking in. ...when your planning to get your hair done or waxed . ..you couldn't pick a better place with this perfectly decorated rustic salon, placed right in the heart of downtown...complimentary drinks while you sit back and relax while you get pampered, great conversation, laughs, smiles, and great people.</br>
+</q>
+	    	<cite></br>Marsha Fairbanks</br>
+	    	</cite>
+	    	<q></br>So excited to work with Amanda on some special projects! She is amazing and fun and I'm sooo happy I had her do my hair. I look forward to coming back again.. btw, Rustic Pear Salon is incredible in terms of style and design of the salon, I just LOVE it</br></q>
+	    	<cite></br>Katy Starr</cite>
+  		</section>
+    
+    	<footer data-role="footer" class="ui-bar">
+    	</footer>
+	</div>
+
+	<!-- ABOUT US -->
+	<div data-role="page" id="aboutus">
+    	<header data-role="header">
+        	<h1>Rustic Pear Salon</h1>
+        	<div data-role="navbar">
+				<ul>
+					<li><a href="#home" data-icon="home" data-theme="b" data-transition="slide">Home</a></li>
+					<li><a href="#aboutus" data-icon="star" class="ui-btn-active" data-theme="b" data-transition="slide">About Us</a></li>
+            		<li><a href="#contactus" data-icon="info" data-theme="b" data-transition="slide">Contact Us</a></li>
+				</ul>
+			</div>
+    	</header>
+    
+    	<section data-role="content">
+    	<div class="content-primary">
+        	<div data-role="collapsible">
+            	<h2>Salon</h2>
+				<h3>What services does Rustic Pear Salon offer?</h3>
+				<ul>
+            		<li>Beauty Salon</li>
+            		<li>Hair Salon</li>
+            		<li>Nail Salon</li>
+				</ul>
+        	</div>
+        	<div data-role="collapsible">
+            	<h2>Staff</h2>
+				<h3>What Rustic Pear Salon can help you do</h3>
+				<ul>
+            		<li>Have beauty</li>
+            		<li>Have nice hair.</li>
+                    <li>Have fancy nails.</li>
+	  			</ul>
+        	</div>
+    	</section>
+    
+    	<footer data-role="footer" class="ui-bar">
+    	</footer>
+	</div>
+
+	<!-- CONTACT US -->
+	<div data-role="page" id="contactus">
+    	<header data-role="header">
+        	<h1>Rustic Pear Salon</h1>
+        	<div data-role="navbar">
+				<ul>
+					<li><a href="#home" data-icon="home" data-theme="b" data-transition="slide">Home</a></li>
+					<li><a href="#aboutus" data-icon="star" data-theme="b" data-transition="slide">About Us</a></li>
+            		<li><a href="#contactus" data-icon="info" class="ui-btn-active" data-theme="b" data-transition="slide">Contact Us</a></li>
+				</ul>                
+			</div>
+            
+    	</header>
+    
+    	<section data-role="content">
+        	<h3>Contact Us</h3>
+    		<form action="http://vectacorp.com/vc/scripts/mobile.asp" method="post" data-ajax="false">
+            	<label for="name">Name:</label>
+            	<input type="text" name="name" id="name">
+            	<label for="companyname">Company Name:</label>
+            	<input type="text" name="companyname" id="companyname">
+            	<label for="phone">Phone:</label>
+            	<input type="tel" name="phone" id="phone">
+            	<label for="email">Email:</label>
+            	<input type="email" name="email" id="email">
+     
+            	<label for="hearaboutus" class="select">How did you hear about us?</label>
+            	<select name="hearaboutus" id="hearaboutus">
+               		<option value="magazine">Magazine Ad</option>
+               		<option value="radio">Radio Ad</option>
+               		<option value="tv">TV Ad</option>
+               		<option value="word">Word of Mouth</option>
+            	</select>
+            
+            	<label for="questions">Questions/Comments:</label>
+            	<textarea name="questions" id="questions"></textarea>
+            	<br>
+            	<input type="submit" value="Submit Form">
+        	</form>
+            
+                     <ul>
+                         <li><h3>Phone</h3>(208) 733-5377 </li>
+                         <li><h3>Address</h3>222 Main Ave N. Twin Falls Idaho</li></br>
+                         <li><a href="https://www.facebook.com/RusticPearSalon/" target="blank"> Facebook</a></li>
+                     </ul>
+    	</section>
+    
+    	<footer data-role="footer" class="ui-bar">
+    	</footer>
+	</div>
+</body>
+</html>
